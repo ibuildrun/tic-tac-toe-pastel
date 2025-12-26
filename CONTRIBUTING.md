@@ -112,4 +112,4 @@ Releases are automated via GitHub Actions:
 
 ## Questions?
 
-Create an [Issue](https://github.com/randomu3/tic-tac-toe-pastel/issues) or reach out on Telegram.
+Create an [Issue](https://github.com/ibuildrun/tic-tac-toe-pastel/issues) or reach out on Telegram.
