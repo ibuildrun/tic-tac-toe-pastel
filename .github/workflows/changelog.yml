@@ -1,0 +1,97 @@
+name: Changelog
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to add to changelog (e.g., 1.2.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-changelog:
+    name: Update Changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'release' && 'main' || github.ref }}
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+          else
+            VERSION="${{ inputs.version }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+
+      - name: Check if version exists in changelog
+        id: check
+        run: |
+          if grep -q "## \[${{ steps.version.outputs.version }}\]" CHANGELOG.md; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get release notes
+        id: notes
+        if: steps.check.outputs.exists == 'false' && github.event_name == 'release'
+        run: |
+          NOTES="${{ github.event.release.body }}"
+          echo "NOTES<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Update changelog
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          DATE="${{ steps.version.outputs.date }}"
+          
+          # Create new entry
+          NEW_ENTRY="## [$VERSION] - $DATE\n\n"
+          
+          if [ "${{ github.event_name }}" == "release" ]; then
+            # Use release notes if available
+            if [ -n "${{ steps.notes.outputs.NOTES }}" ]; then
+              NEW_ENTRY+="${{ steps.notes.outputs.NOTES }}\n\n"
+            else
+              NEW_ENTRY+="### Changed\n- Release $VERSION\n\n"
+            fi
+          else
+            NEW_ENTRY+="### Changed\n- Release $VERSION\n\n"
+          fi
+          
+          # Insert after [Unreleased] section
+          sed -i "/## \[Unreleased\]/a\\
+          \\
+          $NEW_ENTRY" CHANGELOG.md
+
+      - name: Create Pull Request
+        if: steps.check.outputs.exists == 'false'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "docs: update changelog for v${{ steps.version.outputs.version }}"
+          title: "docs: update changelog for v${{ steps.version.outputs.version }}"
+          body: |
+            Automated changelog update for version ${{ steps.version.outputs.version }}.
+            
+            This PR was automatically created by the changelog workflow.
+          branch: changelog/v${{ steps.version.outputs.version }}
+          base: main
+          delete-branch: true
+          labels: documentation

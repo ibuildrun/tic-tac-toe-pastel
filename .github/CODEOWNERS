@@ -1,0 +1,16 @@
+# Default owners for everything in the repo
+* @owner
+
+# Frontend
+/App.tsx @owner
+/components/ @owner
+/services/ @owner
+
+# Backend
+/server/ @owner
+
+# CI/CD
+/.github/ @owner
+
+# Documentation
+*.md @owner

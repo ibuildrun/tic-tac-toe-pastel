@@ -26,16 +26,47 @@ Thank you for your interest in contributing to this project.
 
 This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 
+| Type | Description |
+|------|-------------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation changes |
+| `style` | Code formatting (no logic changes) |
+| `refactor` | Code refactoring |
+| `perf` | Performance improvements |
+| `test` | Adding or updating tests |
+| `chore` | Maintenance tasks |
+| `ci` | CI/CD changes |
+| `deps` | Dependency updates |
+
+### Commit Message Format
+
 ```
-feat: add new feature
-fix: fix a bug
-docs: update documentation
-style: code formatting
-refactor: refactoring without functional changes
-perf: performance optimization
-test: add tests
-chore: maintenance tasks
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
 ```
+
+### Examples
+
+```bash
+feat(game): add zen mode infinite gameplay
+fix(audio): resolve sound not playing on iOS
+docs: update README with deployment instructions
+ci: add GitHub Pages deployment workflow
+deps: update react to v19.2.3
+```
+
+### Scope (optional)
+
+- `game` - game logic
+- `ui` - user interface
+- `audio` - sound system
+- `api` - backend API
+- `telegram` - Telegram integration
+- `docker` - containerization
 
 ## Code Style
 
@@ -58,6 +89,18 @@ npm test
 2. Update documentation if needed
 3. Fill out the PR template
 4. Wait for review
+
+## Release Process
+
+Releases are automated via GitHub Actions:
+
+1. Version bump: Use the "Version Bump" workflow or manually update `package.json`
+2. Create a tag: `git tag v1.2.3 && git push origin v1.2.3`
+3. The release workflow will automatically:
+   - Build the project
+   - Run tests
+   - Create a GitHub Release with changelog
+   - Deploy to GitHub Pages
 
 ## Ideas for Contribution
 

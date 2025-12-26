@@ -5,6 +5,13 @@
   <img src="https://img.shields.io/badge/Telegram-Mini%20App-26A5E4?style=for-the-badge&logo=telegram" alt="Telegram"/>
 </p>
 
+<p align="center">
+  <a href="../../actions/workflows/ci.yml"><img src="https://github.com/randomu3/tic-tac-toe-pastel/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
+  <a href="../../actions/workflows/deploy.yml"><img src="https://github.com/randomu3/tic-tac-toe-pastel/actions/workflows/deploy.yml/badge.svg" alt="Deploy"/></a>
+  <a href="../../releases/latest"><img src="https://img.shields.io/github/v/release/randomu3/tic-tac-toe-pastel?style=flat-square" alt="Release"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/randomu3/tic-tac-toe-pastel?style=flat-square" alt="License"/></a>
+</p>
+
 <h1 align="center">Tic-Tac-Toe Pastel</h1>
 
 <p align="center">
@@ -15,6 +22,9 @@
 <p align="center">
   <a href="https://t.me/TicTacToe_3242_robot">
     <img src="https://img.shields.io/badge/Play%20Now-Telegram-26A5E4?style=for-the-badge" alt="Play"/>
+  </a>
+  <a href="https://randomu3.github.io/tic-tac-toe-pastel/">
+    <img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-222?style=for-the-badge&logo=github" alt="Demo"/>
   </a>
 </p>
 

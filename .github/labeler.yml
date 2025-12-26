@@ -1,0 +1,42 @@
+frontend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'App.tsx'
+          - 'index.tsx'
+          - 'types.ts'
+          - 'components/**/*'
+          - 'services/**/*'
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'server/**/*'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.md'
+          - 'docs/**/*'
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**/*'
+
+docker:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'Dockerfile'
+          - 'docker-compose.yml'
+          - '.dockerignore'
+          - 'server/Dockerfile'
+          - 'server/.dockerignore'
+
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'vite.config.ts'
+          - 'tsconfig.json'
+          - 'package.json'
+          - 'server/tsconfig.json'
+          - 'server/package.json'
